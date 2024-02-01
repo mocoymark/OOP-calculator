@@ -1,6 +1,9 @@
  <?php 
- include "./includes/autoLoader.inc.php";
- include "./classes/operator.class.php";
+//  include "./includes/autoLoader.inc.php";
+//  include "./classes/operator.class.php";
+include "./classes/calculator.class.php";
+include "./includes/newclass.inc.php"
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
