@@ -28,10 +28,26 @@ class Register extends Connection{
            return 1;
           }else{
            return 100;
+           
           }
          };
   }
 }
 
+class Login extends Connection{
+        public function loginFirst($username, $password){
+          $notMatch = mysqli_query($this->conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+          if(mysqli_num_rows($notMatch) == 0){
+            return 10;
+          }else{
+            $login = mysqli_query($this->conn, "SELECT * FROM users WHERE username = '$username' AND password = '$password'");
+             if(mysqli_num_rows($login) == 1){
+              return 1;
+             }else{
+              return 100;
+             }
+          }
+        }
+}
 
 ?>

@@ -7,6 +7,7 @@ $register = new Register();
 if(isset($_POST['submit'])){
  
 $result = $register ->register($name = $_POST['name'], $username = $_POST['username'],$email = $_POST['email'],$password = $_POST['password'],$confirmPassword = $_POST['confirmPassword']);
+
 if(empty($name) ||  empty($email) || empty($password)) {
  return $message = "Please fill out all the fields.";
 }

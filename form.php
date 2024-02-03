@@ -71,6 +71,37 @@
          .form-success{
           color: greenyellow;
          }
+           .btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="button"] {
+            background-color: #28a745;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        button[type="button"]:hover {
+            background-color: #218838;
+        }
      </style>
  <body>
   <form action="form.php" method="post">
@@ -80,8 +111,14 @@
    <input type="text" name="email"  id="email" placeholder="Email Address">
    <input type="password" name="password"  id="password" placeholder="Password">
    <input type="password" name="confirmPassword"  id="confirmPassword" placeholder="confirmPassword"><br><br>
-   <button type="submit" name="submit" id="submit">Register</button>
-   
+   <div class="btn">
+    <button type="submit" name="submit" id="submit">Register</button>
+    <a href="registered.php">
+     <button type="button">Sign-in</button>
+    </a>
+   </div>
+  
+
     <?php if(isset($message)): ?>
             <p class="form-result"><?php echo $message; ?></p>
         <?php endif; ?>
