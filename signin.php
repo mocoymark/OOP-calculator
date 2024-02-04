@@ -1,6 +1,6 @@
 <?php 
 include "./includes/signin.inc.php";
-
+include "session.php";
 
 ?>
 <!DOCTYPE html>

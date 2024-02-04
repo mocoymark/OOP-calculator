@@ -113,7 +113,7 @@
    <input type="password" name="confirmPassword"  id="confirmPassword" placeholder="confirmPassword"><br><br>
    <div class="btn">
     <button type="submit" name="submit" id="submit">Register</button>
-    <a href="registered.php">
+    <a href="signin.php">
      <button type="button">Sign-in</button>
     </a>
    </div>
