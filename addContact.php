@@ -80,6 +80,9 @@ include "./includes/addContact.inc.php";
             <input type="text" id="phone" name="phone" >
         </div>
         <button type="submit" name="submit">Submit</button>
+        <!-- <a href="contactList.php">
+            <button type="submit">Contacts</button>
+        </a> -->
 
         <?php if(isset($message)):?>
             <p class="form-message"><?php Result: echo $message ?></p>

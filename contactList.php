@@ -70,7 +70,7 @@ include "session.php";
         td button:hover {
             background-color: #45a049;
         }
-        .delete{
+        .delete-btn{
             background-color: red;
             color: #fff;
         }
@@ -86,6 +86,9 @@ include "session.php";
         <button onclick="location.href='addContact.php'" type="button">Add Contact</button>
         <button onclick="location.href='logout.php'" type="button">Log-out</button>
     </div>
+       <?php if(isset($message)): ?> 
+     <p class="form-message"><?php echo $message ?></p>
+  <?php endif; ?>
     <table>
         <thead>
             <tr>
@@ -101,10 +104,10 @@ include "session.php";
         </tbody>
     </table>
 
-    <script>
+ <script>
         $(document).ready(function (){
     $.ajax({
-        url: "list.php", // Corrected URL
+        url: "list.php",
         method: "GET",
         dataType: "json",
         success: function(data) {
@@ -114,13 +117,32 @@ include "session.php";
                     '<td>' + data[i].username + '</td>' + 
                     '<td>' + data[i].email + '</td>' + 
                     '<td>' + data[i].phone + '</td>' + 
-                    '<td><button class="edit">Edit</button><button class="delete">Delete</button></td>' + 
+                    '<td><button class="edit">Edit</button><button class="delete-btn" data-id="' + data[i].contact_id + '">Delete</button></td>' + 
                     '</tr>');
             }
         }
     });
-});
+    $(document).on("click", ".delete-btn", function() {
+        var contactId = $(this).data("id");
+        var button = $(this);
 
+        $.ajax({
+            url: "delete.php",
+            method: "POST",
+            data: { contact_id: contactId },
+            success: function(response) {
+                if (response === "success") {
+                    button.closest("tr").remove();
+                } else {
+                    console.log("Error deleting contact.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX error:", error);
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
