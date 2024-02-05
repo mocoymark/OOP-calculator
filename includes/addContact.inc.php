@@ -1,5 +1,5 @@
 <?php
-include "./classes/register.class.php";
+include "./classes/contact.class.php";
 $addContact = new Contact();
 
 if (isset($_POST['submit'])) {
