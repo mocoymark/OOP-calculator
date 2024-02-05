@@ -1,6 +1,5 @@
  <?php 
  include "./includes/register.inc.php";
- 
  ?>
  
  <!DOCTYPE html>
@@ -113,7 +112,7 @@
    <input type="password" name="confirmPassword"  id="confirmPassword" placeholder="confirmPassword"><br><br>
    <div class="btn">
     <button type="submit" name="submit" id="submit">Register</button>
-    <a href="signin.php">
+    <a href="login.php">
      <button type="button">Sign-in</button>
     </a>
    </div>

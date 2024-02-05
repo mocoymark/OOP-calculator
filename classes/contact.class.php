@@ -60,6 +60,7 @@ class Login extends Connection{
         }
 }
 class Contact extends Connection {
+    
 
     public function users_contact($company, $username, $email, $phoneNumber) {
  //user auth to access the contacts

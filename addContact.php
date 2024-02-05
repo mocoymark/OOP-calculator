@@ -1,6 +1,6 @@
 <?php
 include "./includes/addContact.inc.php";
-include "session.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ include "session.php";
     /* CSS styles for the contact form */
     body {
         font-family: Arial, sans-serif;
-        background-color: #f8f8f8;
+        background-color: #f8f8f8; 
         margin: 0;
         padding: 0;
     }

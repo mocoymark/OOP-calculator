@@ -1,4 +1,5 @@
 <?php
+include "./session.php";
 include "./classes/contact.class.php";
 $addContact = new Contact();
 
