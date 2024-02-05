@@ -118,9 +118,10 @@
    </div>
   
 
-    <?php if(isset($message)): ?>
-            <p class="form-result"><?php echo $message; ?></p>
-        <?php endif; ?>
+    <?php if(isset($message)): ?> 
+    <p class="form-message" style="color: <?php echo $message === 'Successfully registered' ? 'green' : 'red'; ?>"><?php echo $message ?></p>
+<?php endif; ?>
+
   </form>
  
  </body>

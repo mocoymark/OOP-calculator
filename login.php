@@ -2,6 +2,9 @@
 session_start();
 include "./includes/login.inc.php";
 
+if(isset($_GET['message'])) {
+    $message = $_GET['message'];
+}
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +55,27 @@ include "./includes/login.inc.php";
         text-align: center;
         margin-top: 10px;
     }
+    a.register {
+    text-decoration: none;
+}
+
+a.register button {
+    width: 100%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+a.register button:hover {
+    background-color: #45a049;
+}
  </style>
 </head>
 <body>
@@ -59,7 +83,10 @@ include "./includes/login.inc.php";
   <h2>Sign in</h2>
   <input type="text" name="username" id="username" placeholder="Email" > 
   <input type="password" name="password" id="password" placeholder="Password">
-  <button type="submit" name="submit">Login</button>
+  <button type="submit" name="submit">Sign-in</button>
+    <a class="register" href="register.php">
+        <button type="button">Register</button>
+        </a>
   <?php if(isset($message)): ?> 
      <p class="form-message"><?php echo $message ?></p>
   <?php endif; ?>
