@@ -21,7 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["contact_id"])) {
     
     $contactId = $_POST["contact_id"];
     
-    echo $contactManager->deleteContact($contactId);
+    $result = $contactManager->deleteContact($contactId);
+    
+    if ($result === "success") {
+        $message = "Contact deleted successfully";
+    } else {
+        $message = "Error deleting contact";
+    }
+    
+    echo $result;
 } else {
     echo "error";
 }

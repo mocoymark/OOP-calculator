@@ -1,7 +1,3 @@
-<?php
-include "./includes/addContact.inc.php";
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,39 +70,80 @@ include "./includes/addContact.inc.php";
 
 </style>
 </head>
+ <?php
+$conn = new mysqli("localhost", "root", "", "mvc_db");
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+ $contactId = $_GET['contact_id'];
+ $sql = "SELECT * FROM `contacts` WHERE contact_id= $contactId  LIMIT 1";
+ $result = mysqli_query($conn, $sql);
+ $row =mysqli_fetch_assoc($result);
+?>
 <body>
 
 <div class="container">
 
- <button id="back">Back</button>
-    <h1>Add Contact</h1>
-    <form action="addContact.php" method="post">
+ <!-- <button id="back">Back</button> -->
+    <h1>Update Contact</h1>
+    <form action="edit.php" method="post">
         <div class="form-group">
             <label for="company">Company Name:</label>
-            <input type="text" id="company" name="company" >
+            <input type="text" id="company" name="company" placeholder="<?php echo $row["company"]?>" >
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" >
+            <input type="text" id="name" name="name"  placeholder="<?php echo $row["username"]?>">
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" >
+            <input type="text" id="email" name="email" placeholder="<?php echo $row["email"]?>">
         </div>
         <div class="form-group">
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone" >
+            <input type="text" id="phone" name="phone" placeholder="<?php echo $row["phone"]?>">
         </div>
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit">Update</button>
         <?php if(isset($message)):?>
             <p class="form-message"><?php Result: echo $message ?></p>
         <?php endif ?>
     </form>
 </div>
 <script>
-          $('#back').click(() => {
-        history.back();
-      });
+$(document).ready(function() {
+    $('#updateButton').click(function() {
+        var formData = $('#updateForm').serialize(); // Serialize form data
+
+        $.ajax({
+            url: 'update.php?id=<?php echo $contactId; ?>', // Pass the contact ID in the URL
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                // Display success or error message based on the response
+                if (response === 'success') {
+                    showMessage('Contact updated successfully', 'success');
+                } else {
+                    showMessage('Failed to update contact', 'error');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', error);
+                showMessage('Error updating contact', 'error');
+            }
+        });
+    });
+
+    function showMessage(message, messageType) {
+        $('.form-message').remove();
+        var messageElement = $('<p>').addClass('form-message').text(message);
+        if (messageType === 'success') {
+            messageElement.addClass('success-message');
+        } else if (messageType === 'error') {
+            messageElement.addClass('error-message');
+        }
+        $('.container').prepend(messageElement);
+    }
+});
 </script>
 
 </body>

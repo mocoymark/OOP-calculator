@@ -103,7 +103,9 @@ include "session.php";
            
         </tbody>
     </table>
-
+  <?php if(isset($message)): ?> 
+    <p class="form-message"><?php echo $message ?></p>
+<?php endif; ?>
  <script>
         $(document).ready(function (){
     $.ajax({
@@ -117,32 +119,56 @@ include "session.php";
                     '<td>' + data[i].username + '</td>' + 
                     '<td>' + data[i].email + '</td>' + 
                     '<td>' + data[i].phone + '</td>' + 
-                    '<td><button class="edit">Edit</button><button class="delete-btn" data-id="' + data[i].contact_id + '">Delete</button></td>' + 
+                    '<td><button class="edit" data-id="' + data[i].contact_id + '">Edit</button><button class="delete-btn" data-id="' + data[i].contact_id + '">Delete</button></td>' + 
                     '</tr>');
             }
         }
-    });
-    $(document).on("click", ".delete-btn", function() {
-        var contactId = $(this).data("id");
-        var button = $(this);
+    }); 
+            $(document).on('click', '.edit', function () {
+                        var contactId = $(this).data('contact_id');
+                        window.location.href = 'edit.php?contact_id=' + contactId;
+                    });
+    
+           $(document).on("click", ".delete-btn", function() {
+                var contactId = $(this).data("id");
+                var button = $(this);
+            
 
-        $.ajax({
-            url: "delete.php",
-            method: "POST",
-            data: { contact_id: contactId },
-            success: function(response) {
-                if (response === "success") {
-                    button.closest("tr").remove();
-                } else {
-                    console.log("Error deleting contact.");
+                $.ajax({
+                    url: "delete.php",
+                    method: "POST",
+                    data: { contact_id: contactId },
+                    success: function(response) {
+                        if (response === "success") {
+                            button.closest("tr").remove();
+                            showMessage("Contact deleted successfully", "success");
+                        } else {
+                            console.log("Error deleting contact.");
+                            showMessage("Error deleting contact", "error");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("AJAX error:", error);
+                        showMessage("Error deleting contact", "error");
+                    }
+                });
+            });
+
+            function showMessage(message, messageType) {
+                $(".form-message").remove();
+                // Create a new message element
+                var messageElement = $("<p>").addClass("form-message").text(message);
+                // Add class based on message type
+                if (messageType === "success") {
+                    messageElement.addClass("success-message");
+                } else if (messageType === "error") {
+                    messageElement.addClass("error-message");
                 }
-            },
-            error: function(xhr, status, error) {
-                console.log("AJAX error:", error);
-            }
-        });
-    });
-});
+                // Append the message to the container
+                $(".btn-container").append(messageElement);
+            }});
+                    
+    
     </script>
 </body>
 </html>
