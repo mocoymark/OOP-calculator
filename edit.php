@@ -71,14 +71,16 @@
 </style>
 </head>
  <?php
+ session_start();
 $conn = new mysqli("localhost", "root", "", "mvc_db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
- $contactId = $_GET['contact_id'];
- $sql = "SELECT * FROM `contacts` WHERE contact_id= $contactId  LIMIT 1";
- $result = mysqli_query($conn, $sql);
- $row =mysqli_fetch_assoc($result);
+    $contactId = $_GET['contact_id']; 
+    $sql = "SELECT * FROM `contacts` WHERE contact_id = $contactId LIMIT 1"; 
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
 ?>
 <body>
 
@@ -86,22 +88,22 @@ if ($conn->connect_error) {
 
  <!-- <button id="back">Back</button> -->
     <h1>Update Contact</h1>
-    <form action="edit.php" method="post">
+    <form action="update.php?contact_id=<?php echo $contactId; ?>" method="post">
         <div class="form-group">
             <label for="company">Company Name:</label>
-            <input type="text" id="company" name="company" placeholder="<?php echo $row["company"]?>" >
+            <input type="text" id="company" name="company" value="<?php echo $row["company"]?>" >
         </div>
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name"  placeholder="<?php echo $row["username"]?>">
+            <input type="text" id="name" name="name"  value="<?php echo $row["username"]?>">
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="<?php echo $row["email"]?>">
+            <input type="text" id="email" name="email" value="<?php echo $row["email"]?>">
         </div>
         <div class="form-group">
             <label for="phone">Phone Number:</label>
-            <input type="text" id="phone" name="phone" placeholder="<?php echo $row["phone"]?>">
+            <input type="text" id="phone" name="phone" value="<?php echo $row["phone"]?>">
         </div>
         <button type="submit" name="submit">Update</button>
         <?php if(isset($message)):?>
@@ -115,8 +117,8 @@ $(document).ready(function() {
         var formData = $('#updateForm').serialize(); // Serialize form data
 
         $.ajax({
-            url: 'update.php?id=<?php echo $contactId; ?>', // Pass the contact ID in the URL
-            method: 'POST',
+            url: 'update.php?contact_id=<?php echo $contactId; ?>', // Pass the contact ID in the URL
+            method: 'POST', 
             data: formData,
             success: function(response) {
                 // Display success or error message based on the response

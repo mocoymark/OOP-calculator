@@ -124,11 +124,11 @@ include "session.php";
             }
         }
     }); 
-            $(document).on('click', '.edit', function () {
-                        var contactId = $(this).data('contact_id');
-                        window.location.href = 'edit.php?contact_id=' + contactId;
-                    });
-    
+           $(document).on("click", ".edit", function() {
+                var contactId = $(this).data("id");
+                window.location.href = "edit.php?contact_id=" + contactId;
+            });       
+
            $(document).on("click", ".delete-btn", function() {
                 var contactId = $(this).data("id");
                 var button = $(this);
@@ -167,6 +167,8 @@ include "session.php";
                 // Append the message to the container
                 $(".btn-container").append(messageElement);
             }});
+
+            
                     
     
     </script>
